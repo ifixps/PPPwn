@@ -1,27 +1,27 @@
 #!/bin/sh
 
 # Create working directory
-mkdir PPPwn_WRT-main
+mkdir PPPwn-main
 if [ $? -ne 0 ]; then
-    echo "Failed to create directory PPPwn_WRT-main"
+    echo "Failed to create directory PPPwn-main"
     exit 1
 fi
 
 # Change to working directory
-cd PPPwn_WRT-main
+cd PPPwn-main
 if [ $? -ne 0 ]; then
-    echo "Failed to change to directory PPPwn_WRT-main"
+    echo "Failed to change to directory PPPwn-main"
     exit 1
 fi
 
 # Download scripts
-wget https://github.com/MODDEDWARFARE/PPPwn_WRT/raw/main/run.sh
+wget https://github.com/ifixps/PPPwn/raw/main/run.sh
 if [ $? -ne 0 ]; then
     echo "Failed to download run.sh"
     exit 1
 fi
 
-wget https://github.com/MODDEDWARFARE/PPPwn_WRT/raw/main/kill.sh
+wget https://github.com/ifixps/PPPwn/raw/main/kill.sh
 if [ $? -ne 0 ]; then
     echo "Failed to download kill.sh"
     exit 1
@@ -32,21 +32,21 @@ machine_arch=$(uname -m)
 
 # Choose script based on the architecture
 if echo "$machine_arch" | grep -q "arch64"; then
-    wget https://github.com/MODDEDWARFARE/PPPwn_WRT/raw/main/pppwn_arch64
+    wget https://github.com/ifixps/PPPwn/raw/main/pppwn_arch64
     if [ $? -ne 0 ]; then
         echo "Failed to download pppwn_arch64"
         exit 1
     fi
     chmod +x pppwn_arch64
 elif echo "$machine_arch" | grep -q "armv7"; then
-    wget https://github.com/MODDEDWARFARE/PPPwn_WRT/raw/main/pppwn_armv7
+    wget https://github.com/ifixps/PPPwn/raw/main/pppwn_armv7
     if [ $? -ne 0 ]; then
         echo "Failed to download pppwn_armv7"
         exit 1
     fi
     chmod +x pppwn_armv7
 elif echo "$machine_arch" | grep -q "x86_64"; then
-    wget https://github.com/MODDEDWARFARE/PPPwn_WRT/raw/main/pppwn_x86_64
+    wget https://github.com/ifixps/PPPwn/raw/main/pppwn_x86_64
     if [ $? -ne 0 ]; then
         echo "Failed to download pppwn_x86_64"
         exit 1
@@ -59,14 +59,14 @@ elif echo "$machine_arch" | grep -q "mips"; then
     BYTE_ORDER=$(lscpu | grep "Byte Order" | awk '{print $3, $4}')
     
     if [ "$BYTE_ORDER" == "Big Endian" ]; then
-        wget https://github.com/MODDEDWARFARE/PPPwn_WRT/raw/main/pppwn_mips
+        wget https://github.com/ifixps/PPPwn/raw/main/pppwn_mips
         if [ $? -ne 0 ]; then
             echo "Failed to download pppwn_mips"
             exit 1
         fi
         chmod +x pppwn_mips
     else
-        wget https://github.com/MODDEDWARFARE/PPPwn_WRT/raw/main/pppwn_mipsel
+        wget https://github.com/ifixps/PPPwn/raw/main/pppwn_mipsel
         if [ $? -ne 0 ]; then
             echo "Failed to download pppwn_mipsel"
             exit 1
@@ -90,12 +90,12 @@ echo
 read -p "Select your PS4 firmware (9.00/9.60/10.00/11.00): " firmware
 if [ "$firmware" = "11.00" ] || [ "$firmware" = "10.00" ] || [ "$firmware" = "9.00" ] || [ "$firmware" = "9.60" ]; then
     echo ${firmware//.} >> settings.cfg
-    wget https://github.com/MODDEDWARFARE/PPPwn_WRT/raw/main/stage1_${firmware//.}.bin
+    wget https://github.com/ifixps/PPPwn/raw/main/stage1_${firmware//.}.bin
     if [ $? -ne 0 ]; then
         echo "Failed to download stage1_${firmware//.}.bin"
         exit 1
     fi
-    wget https://github.com/MODDEDWARFARE/PPPwn_WRT/raw/main/stage2_${firmware//.}.bin
+    wget https://github.com/ifixps/PPPwn/raw/main/stage2_${firmware//.}.bin
     if [ $? -ne 0 ]; then
         echo "Failed to download stage2_${firmware//.}.bin"
         exit 1
@@ -116,14 +116,14 @@ if [ "$app_commands" = "Y" ] || [ "$app_commands" = "y" ]; then
     fi
 
     # Add custom command in LuCi
-    echo -e "\nconfig command\n    option name 'PPPwn PS4'\n    option command '/root/PPPwn_WRT-main/run.sh'" | tee -a /etc/config/luci > /dev/null
+    echo -e "\nconfig command\n    option name 'PPPwn PS4'\n    option command '/root/PPPwn-main/run.sh'" | tee -a /etc/config/luci > /dev/null
 fi
 
 # Run on startup
 echo
 read -p "Do you want to run PPPwn on startup? (Y/N): " run_on_startup
 if [ "$run_on_startup" = "Y" ] || [ "$run_on_startup" = "y" ]; then
-    echo "cd /root/PPPwn_WRT-main && ./run.sh" > /etc/rc.local
+    echo "cd /root/PPPwn-main && ./run.sh" > /etc/rc.local
 fi
 
 # Shutdown after
