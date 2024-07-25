@@ -1,7 +1,7 @@
 #!/bin/sh
 
-interface=$(sed -n '1p' /root/PPPwn_WRT-main/settings.cfg)
-firmware=$(sed -n '2p' /root/PPPwn_WRT-main/settings.cfg)
+interface=$(sed -n '1p' /root/PPPwn-main/settings.cfg)
+firmware=$(sed -n '2p' /root/PPPwn-main/settings.cfg)
 
 # capture the output of uname -m
 machine_arch=$(uname -m)
@@ -14,7 +14,7 @@ elif echo "$machine_arch" | grep -q "armv7"; then
 elif echo "$machine_arch" | grep -q "x86_64"; then
     script_name="pppwn_x86_64"
 elif echo "$machine_arch" | grep -q "mips"; then
-    if [ -e "/root/PPPwn_WRT-main/pppwn_mips" ]; then
+    if [ -e "/root/PPPwn-main/pppwn_mips" ]; then
         script_name="pppwn_mips"
     else
         script_name="pppwn_mipsel"
