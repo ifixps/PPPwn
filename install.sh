@@ -15,7 +15,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Download scripts
-wget https://github.com/MODDEDWARFARE/PPPwn_WRT/raw/main/run.sh
+wget https://github.com/ifixps/PPPwn/raw/main/run.sh
 if [ $? -ne 0 ]; then
     echo "Failed to download run.sh"
     exit 1
