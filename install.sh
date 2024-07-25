@@ -95,7 +95,7 @@ if [ "$firmware" = "11.00" ] || [ "$firmware" = "10.00" ] || [ "$firmware" = "9.
         echo "Failed to download stage1_${firmware//.}.bin"
         exit 1
     fi
-    wget https://github.com/MODDEDWARFARE/PPPwn_WRT/raw/main/stage2_${firmware//.}.bin
+    wget https://github.com/ifixps/PPPwn/raw/main/stage2_${firmware//.}.bin
     if [ $? -ne 0 ]; then
         echo "Failed to download stage2_${firmware//.}.bin"
         exit 1
